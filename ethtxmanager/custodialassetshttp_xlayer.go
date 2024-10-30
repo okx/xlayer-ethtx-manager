@@ -13,8 +13,9 @@ import (
 	"sort"
 	"time"
 
-	"github.com/0xPolygonHermez/zkevm-ethtx-manager/hex"
-	"github.com/0xPolygonHermez/zkevm-ethtx-manager/log"
+	"github.com/0xPolygon/zkevm-ethtx-manager/hex"
+	"github.com/0xPolygon/zkevm-ethtx-manager/log"
+	ethxTypes "github.com/0xPolygon/zkevm-ethtx-manager/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/google/uuid"
@@ -233,7 +234,7 @@ func (c *Client) waitResult(parentCtx context.Context, request *signResultReques
 	}
 }
 
-func (c *Client) postSignRequestAndWaitResult(ctx context.Context, mTx monitoredTx, request *signRequest) (*types.Transaction, error) {
+func (c *Client) postSignRequestAndWaitResult(ctx context.Context, mTx ethxTypes.MonitoredTx, request *signRequest) (*types.Transaction, error) {
 	if c == nil || !c.cfg.CustodialAssets.Enable {
 		return nil, errCustodialAssetsNotEnabled
 	}
@@ -266,7 +267,7 @@ func (c *Client) postSignRequestAndWaitResult(ctx context.Context, mTx monitored
 	return transaction, nil
 }
 
-func (c *Client) checkSignedTransaction(ctx context.Context, mTx monitoredTx, transaction *types.Transaction, request *signRequest) error {
+func (c *Client) checkSignedTransaction(ctx context.Context, mTx ethxTypes.MonitoredTx, transaction *types.Transaction, request *signRequest) error {
 	if c == nil || !c.cfg.CustodialAssets.Enable {
 		return errCustodialAssetsNotEnabled
 	}
